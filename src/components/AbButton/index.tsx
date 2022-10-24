@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 
-interface Props {
+export interface AbButtonProps {
     children?: ReactNode
 }
 
@@ -21,7 +21,7 @@ const AbButtonStyled = styled.button`
 `;
 
 
-export function AbButton({ children }: Props) {
+export function AbButton({ children }: AbButtonProps) {
     return (
         <AbButtonStyled>{ children || "Click me" }</AbButtonStyled>
     );
