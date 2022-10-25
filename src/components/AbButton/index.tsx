@@ -1,28 +1,40 @@
 import React, { ReactNode } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 
 export interface AbButtonProps {
-    children?: ReactNode
+    children?: ReactNode,
+    color?: 'primary' | 'secondary',
+    onClick?: () => void
 }
 
 
-const AbButtonStyled = styled.button`
-    background: #eb9b00;
+const AbButtonStyled = styled.button<AbButtonProps>`
+    background: ${(props) => props.color === 'primary' ? '#eb9b00' : '#fff'};
     padding: 16px 32px;
     border: 2px solid #eb9b00;
-    color: #fff;
+    color: ${(props) => props.color === 'primary' ? '#fff' : '#eb9b00'};
     font-size: 20px;
     cursor: pointer;
-    &:hover {
-        background: #b87900;
-        border: 2px solid #b87900;
+    ${(props) => props.color === 'primary' ? 
+        css`&:hover {
+            background: #b87900;
+            border: 2px solid #b87900;
+        }`
+        :
+        css`&:hover {
+            background: #fff;
+            border: 2px solid #b87900;
+            color: # #b87900
+        }` 
     }
 `;
 
 
-export function AbButton({ children }: AbButtonProps) {
+export function AbButton({ children, color = 'primary', onClick }: AbButtonProps) {
     return (
-        <AbButtonStyled>{ children || "Click me" }</AbButtonStyled>
+        <AbButtonStyled onClick={onClick} color={color}>
+            { children || "Click me" }
+        </AbButtonStyled>
     );
 }
